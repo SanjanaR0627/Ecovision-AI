@@ -109,8 +109,6 @@ Classes:
 """
 )
 
-st.sidebar.success("Developed using TensorFlow & Streamlit")
-
 st.sidebar.markdown("---")
 
 st.sidebar.write("Supported Waste Categories")
@@ -136,7 +134,7 @@ if uploaded_file is not None:
     col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.image(image, caption="Uploaded Image", use_container_width=True)
+        st.image(image, caption="Uploaded Image")
 
     # Preprocess image
     img = image.resize((224, 224))
