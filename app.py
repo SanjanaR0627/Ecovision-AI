@@ -9,6 +9,26 @@ from waste_info import waste_info
 # -----------------------------
 # Page Configuration
 # -----------------------------
+st.markdown("""
+<style>
+
+.stApp{
+    background-color:#0E1117;
+    color:white;
+}
+
+[data-testid="stSidebar"]{
+    background-color:#111827;
+}
+
+.stButton>button{
+    background:#00C853;
+    color:white;
+    border-radius:10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 st.set_page_config(
     page_title="EcoVision AI",
     page_icon="♻️",
