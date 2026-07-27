@@ -9,6 +9,15 @@ from waste_info import waste_info
 # -----------------------------
 # Page Configuration
 # -----------------------------
+st.set_page_config(
+    page_title="EcoVision AI",
+    page_icon="♻️",
+    layout="wide"
+)
+
+# -----------------------------
+# Custom CSS
+# -----------------------------
 st.markdown("""
 <style>
 
@@ -29,15 +38,6 @@ st.markdown("""
 
 </style>
 """, unsafe_allow_html=True)
-st.set_page_config(
-    page_title="EcoVision AI",
-    page_icon="♻️",
-    layout="wide"
-)
-
-# -----------------------------
-# Custom CSS
-# -----------------------------
 st.markdown("""
 <style>
 
