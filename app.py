@@ -22,46 +22,78 @@ st.markdown("""
 <style>
 
 .stApp{
-    background-color:#0E1117;
+    background: linear-gradient(135deg,#0B1120,#111827,#1F2937);
     color:white;
+}
+
+[data-testid="stHeader"]{
+    background: rgba(0,0,0,0);
 }
 
 [data-testid="stSidebar"]{
-    background-color:#111827;
+    background:#111827;
 }
 
-.stButton>button{
-    background:#00C853;
-    color:white;
-    border-radius:10px;
-}
-
-</style>
-""", unsafe_allow_html=True)
-st.markdown("""
-<style>
-
-.main{
-    background-color:#f5fff7;
+.block-container{
+    padding-top:2rem;
 }
 
 .title{
     text-align:center;
-    color:#2E8B57;
-    font-size:45px;
-    font-weight:bold;
+    font-size:55px;
+    font-weight:800;
+    color:#00E676;
 }
 
 .subtitle{
     text-align:center;
-    color:gray;
-    font-size:18px;
+    font-size:20px;
+    color:#B0BEC5;
 }
 
-.result{
-    background:#E8F5E9;
+div[data-testid="stMetric"]{
+    background:#1E293B;
+    border-radius:15px;
+    padding:15px;
+    border:1px solid #334155;
+}
+
+.stSuccess{
+    background:#00C85320;
+    color:white;
+    border-radius:12px;
+}
+
+.stInfo{
+    background:#0288D120;
+    color:white;
+    border-radius:12px;
+}
+
+.stWarning{
+    background:#FFA00020;
+    color:white;
+    border-radius:12px;
+}
+
+.stButton>button{
+    width:100%;
+    background:#00C853;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.stFileUploader{
+    background:#1E293B;
     padding:20px;
     border-radius:15px;
+}
+
+img{
+    border-radius:20px;
 }
 
 </style>
@@ -129,8 +161,6 @@ Classes:
 """
 )
 
-st.sidebar.markdown("---")
-
 st.sidebar.write("Supported Waste Categories")
 
 for item in class_names:
@@ -154,7 +184,7 @@ if uploaded_file is not None:
     col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.image(image, caption="Uploaded Image")
+        st.image(image, caption="Uploaded Image", use_container_width=True)
 
     # Preprocess image
     img = image.resize((224, 224))
@@ -180,23 +210,64 @@ if uploaded_file is not None:
     with col2:
 
         st.subheader("🤖 AI Prediction")
-
-        st.success(f"**{predicted_class.upper()}**")
+        st.markdown(f"""
+<div style="
+background:#00C853;
+padding:18px;
+border-radius:15px;
+text-align:center;
+font-size:30px;
+font-weight:bold;
+color:white;">
+♻️ {predicted_class.upper()}
+</div>
+""", unsafe_allow_html=True)
+        
 
         st.metric(
             label="Confidence",
             value=f"{confidence:.2f}%"
         )
 
-        st.progress(min(confidence / 100, 1.0))
+        st.markdown(f"""
+<div style="background:#374151;
+height:20px;
+border-radius:20px;">
+
+<div style="
+background:#00E676;
+width:{confidence}%;
+height:20px;
+border-radius:20px;">
+</div>
+
+</div>
+
+<p style="text-align:center;
+color:white;
+font-size:18px;">
+Confidence : {confidence:.2f}%
+</p>
+""", unsafe_allow_html=True)
 
         st.write("### Top 3 Predictions")
 
         for idx in top3:
-
-            st.write(
-                f"**{class_names[idx].title()}** : {prediction[idx]*100:.2f}%"
-            )
+            st.markdown(
+f"""
+<div style="
+background:#1E293B;
+padding:12px;
+margin:8px;
+border-radius:10px;
+color:white;">
+<b>{class_names[idx].title()}</b>
+<br>
+{prediction[idx]*100:.2f}%
+</div>
+""",
+unsafe_allow_html=True
+)
 
         st.divider()
 # -----------------------------
@@ -244,17 +315,22 @@ if uploaded_file is not None:
 # -----------------------------
 # Footer
 # -----------------------------
-st.divider()
+st.markdown("""
+<hr>
 
-st.markdown(
-"""
-<center>
+<div style="text-align:center">
 
-### 🌱 EcoVision AI
+<h2 style="color:#00E676;">
+♻️ EcoVision AI
+</h2>
 
-Helping build a cleaner and greener future ♻️
+<p style="color:#B0BEC5;font-size:18px;">
+AI Powered Smart Waste Classification System
+</p>
 
-</center>
-""",
-unsafe_allow_html=True
-)
+<p style="color:white;">
+Helping Build a Cleaner & Greener Future 🌍
+</p>
+
+</div>
+""", unsafe_allow_html=True)
